@@ -29,7 +29,7 @@ class PDFLoader(BaseLoader):
         super().__init__()
 
     def __call__(self, pdf_files: List[str], **kwargs):
-        print(f'---max worker = {self.num_processes}---')
+        print(f'--- max worker = {self.num_processes} ---')
         num_processes = min(self.num_processes, kwargs["workers"])
         with multiprocessing.Pool(processes=num_processes) as pool:
             doc_loaded = []

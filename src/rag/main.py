@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
-from file_loader import Loader
-from vectorstore import VectorDB
-from offline_rag import Offline_RAG
+from .file_loader import Loader
+from .vectorstore import VectorDB
+from .offline_rag import Offline_RAG
 
 class InputQA(BaseModel):
     question: str = Field(..., title = 'Question to ask the model')
@@ -9,8 +9,8 @@ class InputQA(BaseModel):
 class OutputQA(BaseModel):
     answer: str = Field(..., title = 'Answer from the model')
 
-def build_rag_chain(llm, data_dir, data_type):
-    doc_loaded = Loader(file_type = data_type).load_dir(data_dir, workers=2)
+def build_rag_chain(llm, data_dir, data_type, workers_for_load=2):
+    doc_loaded = Loader(file_type = data_type).load_dir(data_dir, workers=workers_for_load)
     retriever = VectorDB(documents = doc_loaded).get_retriever()
     rag_chain = Offline_RAG(llm).get_chain(retriever)
 

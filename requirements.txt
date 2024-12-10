@@ -1,0 +1,12 @@
+wget
+langchain-community
+transformers
+torch
+torchvision
+torchaudio
+langchain-chroma
+sentence-transformers
+langserve
+pypdf
+rapidocr-onnxruntime
+langchain-huggingface

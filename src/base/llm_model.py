@@ -49,7 +49,7 @@ def get_hf_llm(model_name: str = "microsoft/phi-2", call_model_api=True **kwargs
             'text-generation',
             model=model,
             tokenizer=tokenizer,
-            max_new_tokens=max_new_tokens,
+            max_new_tokens=kwargs.get('max_new_tokens', 1024),
             pad_token_id=tokenizer.eos_token_id,
             device_map='auto'
         )

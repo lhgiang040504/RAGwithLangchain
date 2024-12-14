@@ -10,3 +10,10 @@ langserve
 pypdf
 rapidocr-onnxruntime
 langchain-huggingface
+sse-starlette
+pymongo[srv]
+motor
+underthesea
+pydantic[email]
+python-multipart
+langchain-groq

@@ -1,11 +1,14 @@
 import torch
+import os
 
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from transformers import BitsAndBytesConfig
 from langchain.llms import HuggingFacePipeline
 from langchain.llms import HuggingFaceHub
 
-def get_hf_llm(model_name: str = "microsoft/phi-2", call_model_api=True **kwargs):
+from langchain_groq import ChatGroq
+
+def get_hf_chatbot_llm(model_name: str = "microsoft/phi-2", call_model_api=True, **kwargs):
     """
     Creates and returns a HuggingFace LLM pipeline for text generation.
 
@@ -26,15 +29,10 @@ def get_hf_llm(model_name: str = "microsoft/phi-2", call_model_api=True **kwargs
     }
 
     if call_model_api:
-        # Access token
-        HF_TOKEN = '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'
-        
-        
         # create llm model
         llm = HuggingFaceHub(
             repo_id=model_name,
             model_kwargs=gen_kwargs,
-            huggingfacehub_api_token=HF_TOKEN
         )
     else:
         # Load a pre-trained causal language model with low memory usage optimization for CPUs.
@@ -59,4 +57,24 @@ def get_hf_llm(model_name: str = "microsoft/phi-2", call_model_api=True **kwargs
             model_kwargs=gen_kwargs
         )
 
+    return llm
+
+def get_gsk_parse_llm(model_name: str = "llama-3.1-70b-versatile", **kwargs):
+    """
+    Initializes a ChatGroq language model with specified parameters.
+
+    Args:
+        model_name (str): Name of the model to initialize.
+        **kwargs: Additional parameters to customize the ChatGroq instance.
+
+    Returns:
+        ChatGroq: The initialized language model.
+
+    Raises:
+        ValueError: If the GROQ_API_KEY is not set in the environment.
+    """
+    llm = ChatGroq(
+        model_name=model_name,
+        model_kwargs=kwargs
+    )
     return llm

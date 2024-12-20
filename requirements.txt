@@ -17,3 +17,5 @@ underthesea
 pydantic[email]
 python-multipart
 langchain-groq
+pandas
+meta_ai

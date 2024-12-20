@@ -8,6 +8,9 @@ from langchain.llms import HuggingFaceHub
 
 from langchain_groq import ChatGroq
 
+from dotenv import dotenv_values
+config = dotenv_values("../.env")
+
 def get_hf_chatbot_llm(model_name: str = "microsoft/phi-2", call_model_api=True, **kwargs):
     """
     Creates and returns a HuggingFace LLM pipeline for text generation.
@@ -33,6 +36,7 @@ def get_hf_chatbot_llm(model_name: str = "microsoft/phi-2", call_model_api=True,
         llm = HuggingFaceHub(
             repo_id=model_name,
             model_kwargs=gen_kwargs,
+            huggingfacehub_api_token=config['HUGGINGFACEHUB_API_TOKEN']
         )
     else:
         # Load a pre-trained causal language model with low memory usage optimization for CPUs.
@@ -75,6 +79,7 @@ def get_gsk_parse_llm(model_name: str = "llama-3.1-70b-versatile", **kwargs):
     """
     llm = ChatGroq(
         model_name=model_name,
-        model_kwargs=kwargs
+        model_kwargs=kwargs,
+        groq_api_key=config['GROQ_API_KEY']
     )
     return llm

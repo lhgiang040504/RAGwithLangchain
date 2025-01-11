@@ -18,4 +18,4 @@ pydantic[email]
 python-multipart
 langchain-groq
 pandas
-meta_ai
+# meta_ai incompatible, require python [3.6, 3.10]
